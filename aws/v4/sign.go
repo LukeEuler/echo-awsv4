@@ -8,7 +8,6 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"path/filepath"
@@ -176,11 +175,11 @@ func writeBody(r *http.Request, requestData io.StringWriter, sp *SignProcess) {
 		b = []byte("")
 	} else {
 		var err error
-		b, err = ioutil.ReadAll(r.Body)
+		b, err = io.ReadAll(r.Body)
 		if err != nil {
 			panic(err)
 		}
-		r.Body = ioutil.NopCloser(bytes.NewBuffer(b))
+		r.Body = io.NopCloser(bytes.NewBuffer(b))
 	}
 	sp.Body = b
 

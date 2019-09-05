@@ -12,14 +12,14 @@ import (
 
 // Authorization parameter
 type Authorization struct {
-	Algorithm      string   `json:"algorithm,omitempy"`
-	Credential     string   `json:"credential,omitempy"`
-	AccessKeyID    string   `json:"access_key_id,omitempy"`
-	CredentialTime string   `json:"credential_time,omitempy"`
-	Region         string   `json:"region,omitempy"`
-	Name           string   `json:"name,omitempy"`
-	SignedHeaders  []string `json:"signedHeaders,omitempy"`
-	Signature      string   `json:"signature,omitempy"`
+	Algorithm      string   `json:"algorithm,omitempty"`
+	Credential     string   `json:"credential,omitempty"`
+	AccessKeyID    string   `json:"access_key_id,omitempty"`
+	CredentialTime string   `json:"credential_time,omitempty"`
+	Region         string   `json:"region,omitempty"`
+	Name           string   `json:"name,omitempty"`
+	SignedHeaders  []string `json:"signedHeaders,omitempty"`
+	Signature      string   `json:"signature,omitempty"`
 
 	initSignedHeadersMap bool
 	signedHeadersMap     map[string]bool
@@ -173,7 +173,7 @@ type SignProcess struct {
 
 func (p *SignProcess) String() string {
 	result := new(strings.Builder)
-	fmt.Fprint(result, fmt.Sprintf("key(hex): %s\n\n", hex.EncodeToString(p.Key)))
+	fmt.Fprintf(result, "key(hex): %s\n\n", hex.EncodeToString(p.Key))
 
 	result.WriteString("------------ body begin ------------\n")
 	result.Write(p.Body)
