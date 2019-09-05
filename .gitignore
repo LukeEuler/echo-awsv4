@@ -1,0 +1,10 @@
+# ide
+.idea
+*.iml
+
+# External packages folder
+vendor/
+
+#store
+.DS_Store
+
