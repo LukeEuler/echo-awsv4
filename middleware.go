@@ -11,7 +11,6 @@ import (
 	awsv4 "github.com/LukeEuler/echo-awsv4/aws/v4"
 )
 
-// AwsV4Config make base config for awsv4
 type AwsV4Config struct {
 	Region, Name     string
 	AwsCheckHandler  func(c echo.Context, err error)
@@ -35,12 +34,10 @@ func (c *AwsV4Config) AddKey(accessKey, secretKey string, duration time.Duration
 	return nil
 }
 
-// DefaultAwsV4ContextHandler return simple err message where check failed
 func DefaultAwsV4ContextHandler(c echo.Context, err error) {
 	_ = c.String(http.StatusBadRequest, err.Error())
 }
 
-// AwsV4 gives the MiddlewareFunc with AwsV4Config
 func AwsV4(conf AwsV4Config) echo.MiddlewareFunc {
 	if conf.AwsCheckHandler == nil {
 		conf.AwsCheckHandler = DefaultAwsV4ContextHandler
