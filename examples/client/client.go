@@ -2,14 +2,18 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 
 	awsv4 "github.com/LukeEuler/echo-awsv4/aws/v4"
 )
 
 func main() {
-	region, name := "universial", "echo_server"
+	region, name := "universal", "echo_server"
+	// key := &awsv4.Key{
+	// 	AccessKey: "some_key_id_2",
+	// 	SecretKey: `abcc`,
+	// }
 	key := &awsv4.Key{
 		AccessKey: "some_key_id",
 		SecretKey: `iQfiTM4xAPC3N@y26*vlVa^Yb&Vxa35Y`,
@@ -32,7 +36,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	result, err := ioutil.ReadAll(response.Body)
+	result, err := io.ReadAll(response.Body)
 	if err != nil {
 		panic(err)
 	}

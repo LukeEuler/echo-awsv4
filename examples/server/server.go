@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -21,10 +22,18 @@ func main() {
 	e.GET("/", hello)
 
 	conf := am.AwsV4Config{
-		Region:         "universial",
-		Name:           "echo_server",
-		Keys:           map[string]string{"some_key_id": `iQfiTM4xAPC3N@y26*vlVa^Yb&Vxa35Y`},
-		ContextHandler: am.DefaultAwsV4ContextHandler,
+		Region:           "universal",
+		Name:             "echo_server",
+		AwsCheckHandler:  am.DefaultAwsV4ContextHandler,
+		RateCheckHandler: am.DefaultAwsV4ContextHandler,
+	}
+	err := conf.AddKey("some_key_id", `iQfiTM4xAPC3N@y26*vlVa^Yb&Vxa35Y`, 10*time.Second, 3)
+	if err != nil {
+		panic(err)
+	}
+	err = conf.AddKey("some_key_id_2", `abcc`, 10*time.Second, 2)
+	if err != nil {
+		panic(err)
 	}
 
 	e.GET("/hi", hello, am.AwsV4(conf))
